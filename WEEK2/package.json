@@ -1,0 +1,13 @@
+{
+  "name": "cohort-2",
+  "version": "1.0.0",
+  "main": "index.js",
+ "scripts": {
+  "start": "node httpserver.js"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
