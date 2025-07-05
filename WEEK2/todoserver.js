@@ -56,5 +56,43 @@ app.post('/todos',(req,res)=>{
 });
 
 
+app.put('/todos/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const todo = todos.find(t => t.id === id);
+
+  if (!todo) return res.status(404).send({ error: 'Todo not found' });
+
+  const { title, description, completed } = req.body;
+
+  if (title !== undefined) todo.title = title;
+  if (description !== undefined) todo.description = description;
+  if (completed !== undefined) todo.completed = completed;
+
+  saveTodos();
+
+  res.status(200).send({ message: 'Updated successfully' });
+});
 
 
+
+app.delete('/todos/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = todos.findIndex(t => t.id === id);
+
+  if (index === -1) return res.status(404).send({ error: 'Todo not found' });
+
+  todos.splice(index, 1);
+  saveTodos();
+
+  res.status(200).send({ message: 'Deleted successfully' });
+});
+
+app.use((req, res) => {
+  res.status(404).send({ error: 'Route not found' });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
+
+module.exports = app;
