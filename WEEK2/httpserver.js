@@ -26,11 +26,11 @@ app.get('/files/:filename',(req,res)=>{
     const filename=req.params.filename;
     const filePath=path.join(__dirname,'files',filename);
 
-    fs.readFile(filePath,(err,data)=>{
+    fs.readFile(filePath,"utf-8",(err,data)=>{
 
         if(err){
 
-            return res.status(404).json({error:'file not found'});
+            return res.status(404).json({error:'file not found'});      
 
         }
         res.status(200).send(data);
